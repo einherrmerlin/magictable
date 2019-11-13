@@ -1,5 +1,3 @@
-import constants
-
 PROGRAM_EXIT = "beenden"
 FULLTIME = 13
 JAN = ["impedimenta", 3.1, "expelliarmus", 3.0]
