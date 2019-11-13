@@ -36,16 +36,14 @@ if __name__ == "__main__":
 	# create recognizer and mic instancve
     tc.gpio_cleanup()
     tc.gpio_setup()
-    tc.table_calibrate() # sobald diese funktion aufgerufen wird kommt ein Error
-
-    # recognize speech and print speech
+    tc.table_calibrate()
     while True:
         recognizer = sr.Recognizer()
         microphone = sr.Microphone()
         text = recognize_speech_from_mic(recognizer, microphone)
         text = text.lower()
         if (text) == c.MERLIN[0]:
-            print ("~~~ " + text + " ~~~ - Jan / sitzen")
+            print ("~~~ " + text + " ~~~ - Merlin / sitzen")
             tc.table_sitposition(c.MERLIN[1])
         elif (text) == c.MERLIN[2]:
             print ("~~~ " + text + " ~~~ - Merlin / stehen")

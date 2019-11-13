@@ -4,10 +4,11 @@ import RPi.GPIO as GPIO
 
 floorcal = False
 preheight = 0
+gpio_clean = False
 
 # setup and calibration functions
 def gpio_setup():
-    if c.GPIO_CLEAN == False:
+    if gpio_clean == False:
         gpio_cleanup()
     GPIO.setmode(GPIO.BCM)
     GPIO.setup(c.RELAIS_1_GPIO, GPIO.OUT)
@@ -16,22 +17,17 @@ def gpio_setup():
 
 def table_calibrate():
     print ("Kalibrierung läuft, bitte warten")
-    if floorcal == False: # hier kommt der Error, da floorcal noch nicht assignet ist bis dato
-    # Traceback (most recent call last):
-  # File "voicerecognition.py", line 39, in <module>
-    # tc.table_calibrate])
-  # File "/home/pi/tablecontrol.py", line 19, in table_calibrate
-    # table_raise(preheight)
-# UnboundLocalError: local variable 'floorcal' referenced before assignment
-
+    global floorcal
+    if floorcal == False:
         table_lower(c.FULLTIME)
         floorcal = True
     else:
         table_raise(c.FULLTIME)
 
 def gpio_cleanup():
+    global gpio_clean
     GPIO.cleanup()
-    c.GPIO_CLEAN = True
+    gpio_clean = True
 
 # basic commands - only 1 direction and/or stop
 def table_stop():
@@ -54,12 +50,20 @@ def table_raise(height):
 
 # advanced commands - 2 or more directions
 def table_sitposition(height):
+    global preheight
+    global floorcal
+    if floorcal == False:
+        table_calibrate()
     table_lower(preheight)
     table_raise(height)
     preheight = height
 
 
 def table_standposition(height):
+    global preheight
+    global floorcal
+    if floorcal == True:
+        table_calibrate()
     table_raise(preheight)
     table_lower(height)
     preheight = height
