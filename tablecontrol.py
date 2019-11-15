@@ -2,27 +2,29 @@ import time
 import constants as c
 import RPi.GPIO as GPIO
 
-floorcal = False
+nearfloor = False
 preheight = 0
-gpio_clean = False
+gpio_clean = True
 
 # setup and calibration functions
 def gpio_setup():
-    if gpio_clean == False:
-        gpio_cleanup()
+    global gpio_clean
     GPIO.setmode(GPIO.BCM)
     GPIO.setup(c.RELAIS_1_GPIO, GPIO.OUT)
     GPIO.setup(c.RELAIS_2_GPIO, GPIO.OUT)
-
+    gpio_clean = False
 
 def table_calibrate():
-    print ("Kalibrierung läuft, bitte warten")
-    global floorcal
-    if floorcal == False:
+    global nearfloor
+    global preheight
+    if nearfloor == False:
         table_lower(c.FULLTIME)
-        floorcal = True
+        nearfloor = True
+        preheight = 0
     else:
         table_raise(c.FULLTIME)
+        nearfloor = False
+        preheight = 0
 
 def gpio_cleanup():
     global gpio_clean
@@ -51,19 +53,25 @@ def table_raise(height):
 # advanced commands - 2 or more directions
 def table_sitposition(height):
     global preheight
-    global floorcal
-    if floorcal == False:
+    global nearfloor
+    if nearfloor == False:
         table_calibrate()
-    table_lower(preheight)
-    table_raise(height)
-    preheight = height
+    if height != preheight:
+        table_lower(preheight)
+        table_raise(height)
+        preheight = height
+    else:
+        print ("~ Tisch bereits auf dieser Höhe")
 
 
 def table_standposition(height):
     global preheight
-    global floorcal
-    if floorcal == True:
+    global nearfloor
+    if nearfloor == True:
         table_calibrate()
-    table_raise(preheight)
-    table_lower(height)
-    preheight = height
+    if height != preheight:
+        table_raise(preheight)
+        table_lower(height)
+        preheight = height
+    else:
+        print ("~ Tisch bereits auf dieser Höhe ~")
