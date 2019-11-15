@@ -2,9 +2,9 @@ import time
 import constants as c
 import RPi.GPIO as GPIO
 
-nearfloor = False
-preheight = 0
-gpio_clean = True
+nearfloor = False # if table is calibrated on lowest or highest setting
+preheight = 0 # last height stored for comparison
+gpio_clean = True # false if gpios are in use
 
 # setup and calibration functions
 def gpio_setup():

@@ -33,7 +33,9 @@ def recognize_speech_from_mic(recognizer, microphone):
 
 
 if __name__ == "__main__":
-	# create recognizer and mic instancve
+	# create recognizer and mic isinstance
+    # setup gpio pins and calibrate table
+    print ("~ Initialisiere ... ~")
     tc.gpio_setup()
     tc.table_calibrate()
     while True:
@@ -64,4 +66,4 @@ if __name__ == "__main__":
             tc.gpio_cleanup()
             break
         else:
-            print (text + " - Bitte Eingabe wiederholen")
+            print ("~ " + text + " - Bitte Eingabe wiederholen ~")
