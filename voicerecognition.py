@@ -18,7 +18,7 @@ def recognize_speech_from_mic(recognizer, microphone):
     with microphone as source:
         print ("Lade Welt - Bitte warten")
         recognizer.adjust_for_ambient_noise(source)
-        print ("Bitte jetzt sprechen")
+        print ("<<< Bitte jetzt sprechen >>>")
         audio = recognizer.listen(source)
 
     try:
@@ -34,7 +34,6 @@ def recognize_speech_from_mic(recognizer, microphone):
 
 if __name__ == "__main__":
 	# create recognizer and mic instancve
-    tc.gpio_cleanup()
     tc.gpio_setup()
     tc.table_calibrate()
     while True:
@@ -54,8 +53,14 @@ if __name__ == "__main__":
         elif (text) == c.JAN[2]:
             print ("~~~ " + text + " ~~~ - Jan / stehen")
             tc.table_standposition(c.JAN[3])
+        elif (text) == c.CELINA[0]:
+            print ("~~~ " + text + " ~~~ - Celina / sitzen")
+            tc.table_sitposition(c.CELINA[1])
+        elif (text) == c.CELINA[2]:
+            print ("~~~ " + text + " ~~~ - Celina / stehen")
+            tc.table_standposition(c.CELINA[3])
         elif text == c.PROGRAM_EXIT:
-            print (text + " - Programm beendet")
+            print ("~~~ " + text + " ~~~ - Programm beendet")
             tc.gpio_cleanup()
             break
         else:
