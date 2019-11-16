@@ -10,5 +10,5 @@ RELAIS_1_GPIO = 17
 JAN = ["impedimenta", 3.1, "expelliarmus", 3.0]
 MERLIN = ["avada kedavra", 3.5, "expecto patronum", 3.2]
 CELINA = ["crucio", 2.9, "lumos maximus", 3.4]
-OLLI = ["carbe diem", 3.3, "hakuna matata", 2.9]
+OLLI = ["carpe diem", 3.3, "hakuna matata", 2.9]
 PROGRAM_EXIT = "beenden" # spell for exiting
