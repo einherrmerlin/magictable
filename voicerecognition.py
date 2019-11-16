@@ -16,7 +16,7 @@ def recognize_speech_from_mic(recognizer, microphone):
     # adjust the recognizer sensitivity to ambient noise and record audio
     # from the microphone
     with microphone as source:
-        print ("Lade Welt - Bitte warten")
+        print ("~ Lade Welt - Bitte warten ~")
         recognizer.adjust_for_ambient_noise(source)
         print ("<<< Bitte jetzt sprechen >>>")
         audio = recognizer.listen(source)
@@ -44,25 +44,31 @@ if __name__ == "__main__":
         text = recognize_speech_from_mic(recognizer, microphone)
         text = text.lower()
         if (text) == c.MERLIN[0]:
-            print ("~~~ " + text + " ~~~ - Merlin / sitzen")
+            print ("~~~ " + text + " ~~~ Merlin / sitzen")
             tc.table_sitposition(c.MERLIN[1])
         elif (text) == c.MERLIN[2]:
-            print ("~~~ " + text + " ~~~ - Merlin / stehen")
+            print ("~~~ " + text + " ~~~ Merlin / stehen")
             tc.table_standposition(c.MERLIN[3])
         elif (text) == c.JAN[0]:
-            print ("~~~ " + text + " ~~~ - Jan / sitzen")
+            print ("~~~ " + text + " ~~~ Jan / sitzen")
             tc.table_sitposition(c.JAN[1])
         elif (text) == c.JAN[2]:
-            print ("~~~ " + text + " ~~~ - Jan / stehen")
+            print ("~~~ " + text + " ~~~ Jan / stehen")
             tc.table_standposition(c.JAN[3])
         elif (text) == c.CELINA[0]:
-            print ("~~~ " + text + " ~~~ - Celina / sitzen")
+            print ("~~~ " + text + " ~~~ Celina / sitzen")
             tc.table_sitposition(c.CELINA[1])
         elif (text) == c.CELINA[2]:
-            print ("~~~ " + text + " ~~~ - Celina / stehen")
+            print ("~~~ " + text + " ~~~ Celina / stehen")
             tc.table_standposition(c.CELINA[3])
+        elif (text) == c.OLLI[0]:
+            print ("~~~ " + text + " ~~~ Olli / sitzen")
+            tc.table_sitposition(c.OLLI[1])
+        elif (text) == c.OLLI[2]:
+            print ("~~~ " + text + " ~~~ Olli / stehen")
+            tc.table_standposition(c.OLLI[3])
         elif text == c.PROGRAM_EXIT:
-            print ("~~~ " + text + " ~~~ - Programm beendet")
+            print ("~~~ " + text + " ~~~ Programm beendet")
             tc.gpio_cleanup()
             break
         else:
