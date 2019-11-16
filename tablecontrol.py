@@ -61,7 +61,7 @@ def table_sitposition(height):
         table_raise(height)
         preheight = height
     else:
-        print ("~ Tisch bereits auf dieser Höhe")
+        print ("~ Tisch bereits auf dieser Höhe ~")
 
 
 def table_standposition(height):
